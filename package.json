@@ -1,0 +1,21 @@
+{
+  "name": "vue-chat",
+  "version": "0.0.1",
+  "description": "my awesome project",
+  "repository": {
+    "url": "zcong1993/vue-chat",
+    "type": "git"
+  },
+  "scripts": {
+    "dev": "vbuild -dc --eslint",
+    "build": "vbuild -c",
+    "server": "node server/app.js"
+  },
+  "author": "zcong1993 <1005997919@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3",
+    "vue": "^2.2.2"
+  }
+}
