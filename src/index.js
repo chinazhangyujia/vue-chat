@@ -1,6 +1,9 @@
 import Vue from 'vue'
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
 import App from './App'
-// import './socket'
+
+Vue.use(MuseUI)
 
 new Vue({
   el: '#app',
