@@ -1,23 +1,25 @@
 <template>
   <div class="app">
-    <mu-appbar title="Title" class="appbar" :class="{'nav-hide': !open}">
+    <mu-appbar :zDepth="0" title="Title" class="appbar" :class="{'nav-hide': !open}">
       <mu-icon-button icon="menu" slot="left" @click="toggleNav"/>
       <mu-icon-button icon="star" slot="right"/>
       <mu-icon-button icon="star" slot="right"/>
     </mu-appbar>
     <app-drawer :open="open" :docked="docked" @close="toggleNav"></app-drawer>
     <div class="content" :class="{'nav-hide': !open}">
-
+      <Chatter></Chatter>
     </div>
   </div>
 </template>
 
 <script>
   import AppDrawer from './components/AppDrawer'
+  import Chatter from './components/Chatter'
   export default {
     name: 'app',
     components: {
-      'app-drawer': AppDrawer
+      'app-drawer': AppDrawer,
+      Chatter
     },
     data() {
       const desktop = isDesktop()
