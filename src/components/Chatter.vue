@@ -1,5 +1,6 @@
 <template>
   <div class="chatter">
+    <p>{{ messages }}</p>
     <mu-list>
       <mu-list-item  v-for="(msg,index) in msgs" :key="'msg' + index">
         <mu-paper class="msg" :zDepth="2" :class="{'me': isMe(msg.name)}">
@@ -11,6 +12,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     props: {
       msgs: {
@@ -28,6 +31,11 @@
           ]
         }
       }
+    },
+    computed: {
+      ...mapState([
+        'messages'
+      ])
     },
     methods: {
       isMe(name) {

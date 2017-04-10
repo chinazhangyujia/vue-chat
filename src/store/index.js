@@ -1,42 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createSocket from './socket'
+
+const io = require('socket.io-client')
+const socket = io.connect('http://localhost:5000')
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
     username: '',
-    onlineUsers: []
+    onlineUsers: [],
+    messages: []
   },
   mutations: {
     LOGIN_USER(state, user) {
       state.username = user
+      socket.emit('add user', user)
     },
-    ADD_ONLINE_USER(state, user) {
-      if (state.onlineUsers.findIndex(u => u === user) !== -1) {
-        return
-      }
-      state.onlineUsers.push(user)
+    SYNC_USERS(state, users) {
+      state.onlineUsers = users
     },
-    REDUCE_ONLINE_USER(state, user) {
-      const index = state.onlineUsers.findIndex(u => user)
-      if (index === -1) {
-        return
-      }
-      state.onlineUsers.splice(index, 1)
+    RECIEVE_MSG(state, msg) {
+      state.messages.push(msg)
     }
   },
   actions: {
     loginUser({ commit }, payload) {
       commit('LOGIN_USER', payload)
     },
-    addOnlineUser({ commit }, payload) {
-      commit('ADD_ONLINE_USER', payload)
+    syncUsers({ commit }, payload) {
+      commit('SYNC_USERS', payload)
     },
-    reduceOnlineUser({ commit }, payload) {
-      commit('REDUCE_ONLINE_USER', payload)
+    recieveMsg({ commit }, payload) {
+      commit('RECIEVE_MSG', payload)
     }
-  }
+  },
+  plugins: [createSocket(socket)]
 })
 
 export default store
