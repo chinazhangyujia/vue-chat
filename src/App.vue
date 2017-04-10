@@ -68,6 +68,10 @@
           this.errorText = '不能为空'
           return
         }
+        if (this.onlineUsers.findIndex(user => user.name === name) !== -1) {
+          this.errorText = '用户名已被使用'
+          return
+        }
         this.loginUser(name)
         this.resetInput()
         this.dialog = false

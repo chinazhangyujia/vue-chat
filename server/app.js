@@ -7,6 +7,7 @@ const io = require('socket.io')(server)
 const users = []
 
 io.on('connection', socket => {
+  socket.emit('sync users', users)
   let addUser = false
   console.log(socket.id)
   socket.emit('say', 'hello')
@@ -17,9 +18,13 @@ io.on('connection', socket => {
     if (addUser) {
       return
     }
+    const index = users.findIndex(user => user.name === name)
+    if (index !== -1) {
+      return
+    }
     users.push({
       id: socket.id,
-      name: name
+      name
     })
     addUser = true
     console.log(users)
